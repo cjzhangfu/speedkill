@@ -39,6 +39,8 @@ public class Hello {
     @ResponseBody
     public Result<Long> redisGet(){
         Long v1 = redisService.get("key1",Long.class);
+
+
         return Result.success(v1);
     }
 }
