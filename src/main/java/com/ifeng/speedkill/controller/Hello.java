@@ -20,27 +20,34 @@ public class Hello {
 
     @RequestMapping("/demo")
     @ResponseBody
-    public  Result<String> hello(){
-      return Result.success("hello,imooc");
+    public Result<String> hello() {
+        return Result.success("hello,imooc");
     }
+
     @RequestMapping("/test")
-    public String test(Model model){
-        model.addAttribute("name","zhangfu");
+    public String test(Model model) {
+        model.addAttribute("name", "zhangfu");
         return "hello";
     }
+
     @RequestMapping("/doget")
     @ResponseBody
-    public Result<User> dbGet(){
-        User user =userService.getById(1);
+    public Result<User> dbGet() {
+        User user = userService.getById(1);
         return Result.success(user);
     }
 
     @RequestMapping("/redis/get")
     @ResponseBody
-    public Result<Long> redisGet(){
-        Long v1 = redisService.get("key1",Long.class);
+    public Result<Long> redisGet() {
+        Long v1 = redisService.get("key1", Long.class);
+        return Result.success(v1);
+    }
 
-
+    @RequestMapping("/redis/set")
+    @ResponseBody
+    public Result<Boolean> redisSet() {
+        Boolean v1 = redisService.set("key2", "hello zf!");
         return Result.success(v1);
     }
 }
