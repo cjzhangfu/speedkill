@@ -2,6 +2,7 @@ package com.ifeng.speedkill.controller;
 
 import com.ifeng.speedkill.domain.User;
 import com.ifeng.speedkill.redis.RedisService;
+import com.ifeng.speedkill.redis.UserKey;
 import com.ifeng.speedkill.service.UserService;
 import com.ifeng.speedkill.uitl.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,15 +40,18 @@ public class Hello {
 
     @RequestMapping("/redis/get")
     @ResponseBody
-    public Result<Long> redisGet() {
-        Long v1 = redisService.get("key1", Long.class);
-        return Result.success(v1);
+    public Result<User> redisGet() {
+        User user = redisService.get(UserKey.getById,""+1, User.class);
+        return Result.success(user);
     }
 
     @RequestMapping("/redis/set")
     @ResponseBody
     public Result<Boolean> redisSet() {
-        Boolean v1 = redisService.set("key2", "hello zf!");
+        User user = new User();
+        user.setId(1);
+        user.setUsername("111111");
+        Boolean v1 = redisService.set(UserKey.getById,""+1, user);
         return Result.success(v1);
     }
 }
